@@ -24,3 +24,4 @@ IMGUI_IMPL_API bool     ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
 IMGUI_IMPL_API void     ImGui_ImplSDL2_Shutdown();
 IMGUI_IMPL_API void     ImGui_ImplSDL2_NewFrame(SDL_Window* window);
 IMGUI_IMPL_API bool     ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
+IMGUI_IMPL_API bool     ImGui_ImplSDL2_InitForOpenGLEx(SDL_Window* window, void* sdl_gl_context, void* loaderProc);

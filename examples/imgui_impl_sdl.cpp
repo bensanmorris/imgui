@@ -55,6 +55,10 @@
 static const Uint32 SDL_WINDOW_VULKAN = 0x10000000;
 #endif
 
+#if defined IMGUI_IMPL_OPENGL_LOADER_GLAD
+#include <glad/glad.h>
+#endif
+
 // Data
 static SDL_Window*  g_Window = NULL;
 static Uint64       g_Time = 0;
@@ -182,6 +186,15 @@ static bool ImGui_ImplSDL2_Init(SDL_Window* window)
 bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context)
 {
     (void)sdl_gl_context; // Viewport branch will need this.
+    return ImGui_ImplSDL2_Init(window);
+}
+
+bool ImGui_ImplSDL2_InitForOpenGLEx(SDL_Window* window, void* sdl_gl_context, void* loaderProc)
+{
+    (void)sdl_gl_context; // Viewport branch will need this.
+#if defined IMGUI_IMPL_OPENGL_LOADER_GLAD
+    gladLoadGLLoader((GLADloadproc)loaderProc);
+#endif
     return ImGui_ImplSDL2_Init(window);
 }
 
