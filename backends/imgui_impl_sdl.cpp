@@ -57,6 +57,10 @@
 #define SDL_HAS_CAPTURE_AND_GLOBAL_MOUSE    SDL_VERSION_ATLEAST(2,0,4)
 #define SDL_HAS_VULKAN                      SDL_VERSION_ATLEAST(2,0,6)
 
+#if defined IMGUI_IMPL_OPENGL_LOADER_GLAD
+#include <glad/glad.h>
+#endif
+
 // Data
 static SDL_Window*  g_Window = NULL;
 static Uint64       g_Time = 0;
@@ -190,6 +194,15 @@ static bool ImGui_ImplSDL2_Init(SDL_Window* window)
 #endif
 
     return true;
+}
+
+bool ImGui_ImplSDL2_InitForOpenGLEx(SDL_Window* window, void* sdl_gl_context, void* loaderProc)
+{
+    (void)sdl_gl_context; // Viewport branch will need this.
+#if defined IMGUI_IMPL_OPENGL_LOADER_GLAD && defined(WIN32)
+    gladLoadGLLoader((GLADloadproc)loaderProc);
+#endif
+    return ImGui_ImplSDL2_Init(window);
 }
 
 bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context)
