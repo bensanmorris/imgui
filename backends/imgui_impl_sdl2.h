@@ -29,6 +29,7 @@ typedef union SDL_Event SDL_Event;
 
 // Follow "Getting Started" link and check examples/ folder to learn about using backends!
 IMGUI_IMPL_API bool     ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);
+IMGUI_IMPL_API bool     ImGui_ImplSDL2_InitForOpenGLEx(SDL_Window* window, void* sdl_gl_context, void* loaderProc);
 IMGUI_IMPL_API bool     ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
 IMGUI_IMPL_API bool     ImGui_ImplSDL2_InitForD3D(SDL_Window* window);
 IMGUI_IMPL_API bool     ImGui_ImplSDL2_InitForMetal(SDL_Window* window);

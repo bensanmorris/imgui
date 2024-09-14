@@ -113,6 +113,10 @@
 #endif
 #define SDL_HAS_VULKAN                      SDL_VERSION_ATLEAST(2,0,6)
 
+#if defined IMGUI_IMPL_OPENGL_LOADER_GLAD
+#include <glad/glad.h>
+#endif
+
 // SDL Data
 struct ImGui_ImplSDL2_Data
 {
@@ -531,6 +535,15 @@ static bool ImGui_ImplSDL2_Init(SDL_Window* window, SDL_Renderer* renderer, void
 bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context)
 {
     return ImGui_ImplSDL2_Init(window, nullptr, sdl_gl_context);
+}
+
+bool ImGui_ImplSDL2_InitForOpenGLEx(SDL_Window* window, void* sdl_gl_context, void* loaderProc)
+{
+    (void)sdl_gl_context; // Viewport branch will need this.
+#if defined IMGUI_IMPL_OPENGL_LOADER_GLAD && defined(WIN32)
+    gladLoadGLLoader((GLADloadproc)loaderProc);
+#endif
+    return ImGui_ImplSDL2_InitForOpenGL(window, sdl_gl_context);
 }
 
 bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window)
